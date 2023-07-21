@@ -431,6 +431,17 @@ def main():
     if len(tokenizer) > embedding_size:
         model.resize_token_embeddings(len(tokenizer))
 
+    def compute_loss(model, inputs, return_outputs=False):
+        outputs = model(**inputs)
+        loss = outputs.loss
+
+    # 가중치를 추가하는 부분입니다.
+    # 예시로 가중치 값을 1로 설정합니다.
+        weight = 1
+        weighted_loss = weight * loss
+
+        return (weighted_loss, outputs) if return_outputs else weighted_loss
+
     # Preprocessing the datasets.
     # First we tokenize all the texts.
     if training_args.do_train:
