@@ -31,7 +31,6 @@ def summarize(text, max_length=500):
     return summarized_text
 
 def answer(state, state_chatbot, text, include_prefix, do_summarize):
-    temprature = 0.2 if include_prefix else 0.7
 
     if include_prefix:
         text = f"(kwater) {text}"
@@ -51,7 +50,7 @@ def answer(state, state_chatbot, text, include_prefix, do_summarize):
         conversation_history + "\n\n### 답변:",
         do_sample=True,
         max_new_tokens=512,
-        temperature=temprature,
+        temperature=0.9,
         top_p=0.9,
         return_full_text=False,
         eos_token_id=2,
