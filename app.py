@@ -18,7 +18,7 @@ pipe = pipeline(
     # device=2,
 )
 
-def summarize(text, max_length=500):
+def summarize(text, max_length=250):
     # Load the summarization pipeline
     summarizer = pipeline("summarization")
 
