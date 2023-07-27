@@ -66,9 +66,6 @@ def answer(state, state_chatbot, text, include_prefix, do_summarize):
     state = state + new_state
     state_chatbot = state_chatbot + [(text, msg)]
 
-    print(state)
-    print(state_chatbot)
-
     return state, state_chatbot, state_chatbot
 
 state = [
@@ -93,9 +90,16 @@ def toggle_prefix(btn_value):
     global include_prefix
     include_prefix = btn_value
 
+def toggle_summarize(btn_value):
+    global do_summarize
+    do_summarize = btn_value
+
 include_prefix = True  # 초기에는 (kwater)가 포함된 형태로 시작
 button = gr.ButtonGroup(["(kwater) On", "(kwater) Off"], label="Include (kwater):", default=0)
 button.onclick(toggle_prefix)
+
+checkbox = gr.Toggle(False, label="Include Summarize:")
+checkbox.onclick(lambda _: toggle_summarize(checkbox))
 
 textbox = gr.Textbox(show_label=False, placeholder="Send a message...").style(
     container=False
@@ -105,13 +109,14 @@ demo = gr.Interface(
     fn=answer,
     inputs=[
         button,
+        checkbox,
         gr.Param("State", gr.JSON, state),
         gr.Param("State Chatbot", gr.JSON, state_chatbot),
         textbox,
     ],
     outputs="json",
     examples=[
-        ["Include (kwater):", "State", "State Chatbot", "Send a message..."],
+        ["Include (kwater):", "Include Summarize:", "State", "State Chatbot", "Send a message..."],
     ],
 )
 
