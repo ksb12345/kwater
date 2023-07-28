@@ -18,7 +18,7 @@ pipe = pipeline(
     # device=2,
 )
 
-def summarize(text, max_length=250):
+'''def summarize(text, max_length=250):
     # Load the summarization pipeline
     summarizer = pipeline("summarization")
 
@@ -28,17 +28,17 @@ def summarize(text, max_length=250):
     # Extract the summarized text from the output dictionary
     summarized_text = summary[0]['summary_text']
 
-    return summarized_text
+    return summarized_text'''
 
-def answer(state, state_chatbot, text, include_prefix, do_summarize):
+def answer(state, state_chatbot, text, include_prefix):
 
     if include_prefix:
         text = f"(kwater) {text}"
     else:
         text = text
 
-    if do_summarize:
-        text = summarize(text, max_length=500)   
+    '''if do_summarize:
+        text = summarize(text, max_length=500)'''
 
     messages = state + [{"role": "질문", "content": text}]
 
