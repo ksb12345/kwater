@@ -437,7 +437,7 @@ def main():
 
     # 가중치를 추가하는 부분입니다.
     # 예시로 가중치 값을 1로 설정합니다.
-        weight = 0.7
+        weight = 1
         weighted_loss = weight * loss
 
         return (weighted_loss, outputs) if return_outputs else weighted_loss
@@ -579,7 +579,6 @@ def main():
         tokenizer=tokenizer,
         # Data collator will default to DataCollatorWithPadding, so we change it.
         data_collator=default_data_collator,
-        compute_loss=compute_loss,
         compute_metrics=compute_metrics if training_args.do_eval and not is_torch_tpu_available() else None,
         preprocess_logits_for_metrics=preprocess_logits_for_metrics
         if training_args.do_eval and not is_torch_tpu_available()
